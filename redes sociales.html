@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="logo.jpg">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <title>yithell</title>
+</head>
+<body style="background-color: #000; margin: 0; padding: 0;">
+    <main>
+        <!-- Instagram -->
+        <div class="icon">
+            <a href="https://www.instagram.com/yithell.street?stkn=MTRnZWF6eWN6Y2JjNg==" target="_blank" style="text-decoration: none; color: inherit;">
+            <svg height="80" width="80">
+                <circle cx="40" cy="40" r="35" stroke="white" stroke-width="4" fill="none"></circle>
+            </svg>
+            <i class='bx bxl-instagram'></i>
+            </a>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="icon">
+            <a href="https://wa.me/3115891999" target="_blank" style="text-decoration: none; color: inherit;">
+            <svg height="80" width="80">
+                <circle cx="40" cy="40" r="35" stroke="white" stroke-width="4" fill="none"></circle>
+            </svg>
+            <i class='bx bxl-whatsapp'></i>
+            </a>
+        </div>
+
+        <!-- TikTok -->
+        <div class="icon">
+            <a href="https://www.tiktok.com/@yithell.street?_r=1&_t=ZS-9A3exYHq4zx" target="_blank" style="text-decoration: none; color: inherit;">
+            <svg height="80" width="80">
+                <circle cx="40" cy="40" r="35" stroke="white" stroke-width="4" fill="none"></circle>
+            </svg>
+            <i class='bx bxl-tiktok'></i>
+            </a>
+        </div>
+    </main>
+
+<style>
+    /* --- ESTILOS GENERALES (Para computadora) --- */
+.menu-derecha {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contenedor-carta {
+    width: 300px;
+}
+
+/* --- CÓDIGO PARA CELULARES --- */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .productos, .menu-derecha {
+        flex-direction: column; 
+        align-items: center;
+        gap: 10px;
+    }
+
+    .contenedor-carta {
+        width: 100%; 
+        max-width: 320px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;    
+}
+
+.icon {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 20px;
+    border-radius: 50%;
+    transition: all .8s;
+    cursor: pointer;
+}
+
+/* 1. Instagram (Rosa) */
+.icon:nth-child(1):hover {
+    background-color: #e60073;
+    box-shadow: 0 0 20px #e60073;
+}
+
+/* 2. WhatsApp (Verde) */
+.icon:nth-child(2):hover {
+    background-color: #25d366;
+    box-shadow: 0 0 20px #25d366;
+}
+
+/* 3. TikTok (Negro/Gris moderno) */
+.icon:nth-child(3):hover {
+    background-color: #25f4ee;
+    box-shadow: 0 0 20px #25f4ee;
+}
+
+.icon i {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 1.7rem;
+}
+
+svg circle {
+    stroke-dasharray: 150;
+    transition: all .8s ease-in-out;
+}
+
+.icon:hover circle {
+    stroke-dasharray: 220;
+}
+</style>
+</html>

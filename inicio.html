@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo.jpg">
+    <title>Yithell street</title>
+
+    <style>
+        :root {
+            --negro-fondo: #0a050d;
+            --rojo-neon: #ff2a00;
+            --cian-termico: #a3ffeb;
+            --blanco: #ffffff;
+            --gris-trans: rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--negro-fondo);
+            background-image: linear-gradient(rgba(10, 5, 13, 0.85), rgba(10, 5, 13, 0.85)), 
+                              url('logo.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            color: var(--blanco);
+            overflow-x: hidden;
+            padding-bottom: 100px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 50px;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-contenedor img {
+            height: 90px;
+            filter: drop-shadow(0 0 8px var(--rojo-neon));
+        }
+
+        .menu-derecha {
+            display: flex;
+            gap: 30px;
+        }
+
+        .icon-btn {
+            background: none; border: none; color: var(--blanco);
+            cursor: pointer; font-size: 14px; letter-spacing: 1px;
+            transition: 0.3s; text-transform: uppercase;
+        }
+
+        .icon-btn:hover {
+            color: var(--cian-termico);
+            text-shadow: 0 0 10px var(--rojo-neon);
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            position: fixed;
+            top: 0; right: -350px;
+            width: 350px; height: 100%;
+            background: rgba(10, 5, 13, 0.98);
+            backdrop-filter: blur(15px);
+            border-left: 2px solid var(--rojo-neon);
+            transition: right 0.5s ease;
+            z-index: 2000;
+            padding: 60px 40px;
+            display: flex; flex-direction: column; gap: 35px;
+        }
+
+        .sidebar.active { right: 0; }
+
+        .close-sidebar {
+            align-self: flex-end; background: none; border: none;
+            color: var(--rojo-neon); font-size: 24px; cursor: pointer;
+        }
+
+        .sidebar-link {
+            color: var(--blanco); text-decoration: none;
+            font-size: 20px; text-transform: uppercase; letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .sidebar-link:hover {
+            color: var(--cian-termico);
+            padding-left: 10px;
+        }
+
+        /* --- GRID DE 2 EN 2 --- */
+        .experiencia-container {
+            max-width: 1000px;
+            margin: 140px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        .titulo-seccion {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--blanco);
+            text-shadow: 0 0 10px rgba(255, 42, 0, 0.5);
+        }
+
+        .grid-prendas {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 COLUMNAS SIEMPRE */
+            gap: 35px;
+            width: 100%;
+            perspective: 1000px;
+        }
+
+        /* --- CARTAS EXPERIENCIALES --- */
+        .contenedor-carta {
+            width: 100%;
+            height: 420px;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contenedor-carta:hover {
+            transform: rotateY(180deg);
+        }
+
+        .cara {
+            position: absolute;
+            width: 100%; height: 100%;
+            backface-visibility: hidden;
+            display: flex; justify-content: center; align-items: center;
+            clip-path: polygon(6% 0%, 93% 4%, 100% 90%, 0% 95%);
+        }
+
+        .frontal {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                              url('WhatsApp Image 2026-06-24 at 6.54.25 PM.jpeg');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        .texto-revelar {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: 1px solid var(--rojo-neon);
+            text-shadow: 0 0 8px var(--rojo-neon);
+            transition: 0.3s;
+        }
+
+        .contenedor-carta:hover .texto-revelar {
+            transform: scale(1.1);
+        }
+
+        .etiqueta-categoria {
+            position: absolute; top: 30px; left: 30px;
+            font-size: 14px; text-transform: uppercase; letter-spacing: 3px;
+            color: var(--blanco);
+            background: #000;
+            padding: 2px 10px;
+        }
+
+        .trasera {
+            background-color: rgba(10, 5, 13, 0.98);
+            transform: rotateY(180deg);
+            border: 2px solid var(--rojo-neon);
+            box-shadow: 0 0 30px rgba(164, 38, 12, 0.4);
+            padding: 30px;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .prenda-real {
+            max-width: 85%; max-height: 65%; object-fit: contain;
+        }
+
+        .info-prenda { text-align: center; width: 100%; }
+        .nombre-prenda { font-size: 18px; text-transform: uppercase; margin-bottom: 5px; }
+        .precio-prenda { color: var(--cian-termico); font-weight: bold; font-size: 16px; margin-bottom: 10px;}
+
+        .btn-comprar {
+            display: inline-block;
+            text-decoration: none;
+            background: transparent; border: 1px solid var(--rojo-neon);
+            color: #fff; padding: 8px 25px; border-radius: 30px;
+            cursor: pointer; text-transform: uppercase; font-size: 11px;
+            transition: 0.3s;
+        }
+
+        .btn-comprar:hover {
+            background: var(--rojo-neon);
+            box-shadow: 0 0 15px var(--rojo-neon);
+        }
+
+        /* --- ADAPTACIÓN A CELULARES --- */
+        @media (max-width: 600px) {
+            header { padding: 15px 20px; }
+            .logo-contenedor img { height: 60px; }
+            .menu-derecha { gap: 10px; }
+            .grid-prendas { grid-template-columns: 1fr; } /* En pantallas muy pequeñas se muestra 1 por fila */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo-contenedor">
+            <img src="logo.jpg" alt="Yithell">
+        </div>
+
+        <div class="menu-derecha">
+            <button class="icon-btn" onclick="toggleSidebar()">☰ MENÚ</button>
+            <a href="carrito.html"><button class="icon-btn">🛒 CARRITO</button></a>
+        </div>
+    </header>
+
+    <!-- MENÚ LATERAL -->
+    <nav class="sidebar" id="sidebar">
+        <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        <a href="Index.html" class="sidebar-link">Inicio</a>
+        <a href="redes sociales.html" class="sidebar-link">Redes sociales</a>
+    </nav>
+
+    <!-- SECCIÓN DE PRODUCTOS -->
+    <main class="experiencia-container">
+        <h2 class="titulo-seccion">Explora el Stock</h2>
+        
+        <div class="grid-prendas">
+            <!-- TARJETA 1 -->
+            <div class="contenedor-carta">
+                <div class="cara frontal">
+                    <div class="etiqueta-categoria">Sudaderas</div>
+                    <div class="texto-revelar">Revelar Prenda</div>
+                </div>
+                <div class="cara trasera">
+                    <img src="sudadera 1.jpg" alt="Prenda" class="prenda-real">
+                    <div class="info-prenda">
+                        <div class="nombre-prenda">Conjuntos Sudaderas Pareja</div>
+                        <div class="precio-prenda">$140.000 COP</div>
+                        <a href="sudadera jordan gris.html" class="btn-comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TARJETA 2 -->
+            <div class="contenedor-carta">
+                <div class="cara frontal">
+                    <div class="etiqueta-categoria">Sudaderas</div>
+                    <div class="texto-revelar">Revelar Prenda</div>
+                </div>
+                <div class="cara trasera">
+                    <img src="tech 1.jpg" alt="Prenda" class="prenda-real">
+                    <div class="info-prenda">
+                        <div class="nombre-prenda">Conjunto Nike tech rojo</div>
+                        <div class="precio-prenda">$140.000 COP</div>
+                        <a href="tech roja.html" class="btn-comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 3 -->
+            <div class="contenedor-carta">
+                <div class="cara frontal">
+                    <div class="etiqueta-categoria">Sudaderas</div>
+                    <div class="texto-revelar">Revelar Prenda</div>
+                </div>
+                <div class="cara trasera">
+                    <img src="tech 2.jpg" alt="Prenda" class="prenda-real">
+                    <div class="info-prenda">
+                        <div class="nombre-prenda">Conjunto Nike tech blanca con negro</div>
+                        <div class="precio-prenda">$140.000 COP</div>
+                        <a href="tech blanca.html" class="btn-comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 4 -->
+            <div class="contenedor-carta">
+                <div class="cara frontal">
+                    <div class="etiqueta-categoria">Sudaderas</div>
+                    <div class="texto-revelar">Revelar Prenda</div>
+                </div>
+                <div class="cara trasera">
+                    <img src="tech 3.jpg" alt="Prenda" class="prenda-real">
+                    <div class="info-prenda">
+                        <div class="nombre-prenda">Conjunto Nike tech negra</div>
+                        <div class="precio-prenda">$140.000 COP</div>
+                        <a href="tech negra.html" class="btn-comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 5 -->
+            <div class="contenedor-carta">
+                <div class="cara frontal">
+                    <div class="etiqueta-categoria">Sudaderas</div>
+                    <div class="texto-revelar">Revelar Prenda</div>
+                </div>
+                <div class="cara trasera">
+                    <img src="jordan 1.jpg" alt="Prenda" class="prenda-real">
+                    <div class="info-prenda">
+                        <div class="nombre-prenda">Conjunto jordan roja</div>
+                        <div class="precio-prenda">$140.000 COP</div>
+                        <a href="jordan roja.html" class="btn-comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 6 -->
+            <div class="contenedor-carta">
+                <div class="cara frontal">
+                    <div class="etiqueta-categoria">Sudaderas</div>
+                    <div class="texto-revelar">Revelar Prenda</div>
+                </div>
+                <div class="cara trasera">
+                    <img src="jordan 2.jpg" alt="Prenda" class="prenda-real">
+                    <div class="info-prenda">
+                        <div class="nombre-prenda">Conjunto jordan azul</div>
+                        <div class="precio-prenda">$140.000 COP</div>
+                        <a href="jordan azul.html" class="btn-comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 7 (Corset y malla) -->
+            <div class="contenedor-carta">
+                <div class="cara frontal">
+                    <div class="etiqueta-categoria">Corset</div>
+                    <div class="texto-revelar">Revelar Prenda</div>
+                </div>
+                <div class="cara trasera">
+                    <img src="top y malla.jpg" alt="Prenda" class="prenda-real">
+                    <div class="info-prenda">
+                        <div class="nombre-prenda">Corset y malla</div>
+                        <div class="precio-prenda">$140.000 COP</div>
+                        <a href="top y malla.html" class="btn-comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 8 (Corset alessia) -->
+            <div class="contenedor-carta">
+                <div class="cara frontal">
+                    <div class="etiqueta-categoria">Corset</div>
+                    <div class="texto-revelar">Revelar Prenda</div>
+                </div>
+                <div class="cara trasera">
+                    <img src="corset.png" alt="Prenda" class="prenda-real">
+                    <div class="info-prenda">
+                        <div class="nombre-prenda">Corset alessia</div>
+                        <div class="precio-prenda">$70.000 COP</div>
+                        <a href="corset alessia.html" class="btn-comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+               <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">Corset</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div> <!-- Faltaba cerrar el div de la cara frontal -->
+    
+    <div class="cara trasera">
+        <img src="Corset cafe.png" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">Corset alessia Cafe</div>
+            <div class="precio-prenda">$70.000 COP</div>
+            <a href="corset alessia cafe.html" class="btn-comprar">comprar</a>
+        </div>
+
+    </div>
+</div> 
+           <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">Blusa</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div> <!-- Faltaba cerrar el div de la cara frontal -->
+    
+    <div class="cara trasera">
+        <img src="blusa perlas.png" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">Blusa perlada</div>
+            <div class="precio-prenda">$70.000 COP</div>
+            <a href="blusa perlada.html" class="btn-comprar">comprar</a>
+        </div>
+        
+    </div>
+</div> 
+           <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">Blusa</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div> <!-- Faltaba cerrar el div de la cara frontal -->
+    
+    <div class="cara trasera">
+        <img src="blusa scartell.png" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">Blusa Scartell</div>
+            <div class="precio-prenda">$60.000 COP</div>
+            <a href="Blusa Scartell.html" class="btn-comprar">comprar</a>
+        </div>
+        
+    </div>
+</div> 
+          <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">Blusa</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div> <!-- Faltaba cerrar el div de la cara frontal -->
+    
+    <div class="cara trasera">
+        <img src="blusa martthan.png" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">Blusa Manhattan</div>
+            <div class="precio-prenda">$60.000 COP</div>
+            <a href="blusa manhattan.html" class="btn-comprar">comprar</a>
+        </div>
+        
+    </div>
+</div> 
+         <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">Blusa</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div> <!-- Faltaba cerrar el div de la cara frontal -->
+    
+    <div class="cara trasera">
+        <img src="blusa sweet cogget.png" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">Blusa sweet cogget</div>
+            <div class="precio-prenda">$60.000 COP</div>
+            <a href="Blusa Sweet Cogget.html" class="btn-comprar">comprar</a>
+        </div>
+        
+    </div>
+</div> 
+   <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">Blusa</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div> <!-- Faltaba cerrar el div de la cara frontal -->
+    
+    <div class="cara trasera">
+        <img src="lavanda royale.png" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">Blusa lavanda royale</div>
+            <div class="precio-prenda">$60.000 COP</div>
+            <a href="lavanda royale.html" class="btn-comprar">comprar</a>
+        </div>
+        
+    </div>
+</div> 
+<div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">Blusa</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div> <!-- Faltaba cerrar el div de la cara frontal -->
+    
+    <div class="cara trasera">
+        <img src="ionic 23.png" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">Blusa ionic 23</div>
+            <div class="precio-prenda">$50.000 COP</div>
+            <a href="ionic 23.html" class="btn-comprar">comprar</a>
+        </div>
+        
+    </div>
+</div> 
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        function agregarAlCarrito(nombre, precio) {
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            carrito.push({ nombre: nombre, precio: precio });
+            localStorage.setItem('miCarrito', JSON.stringify(carrito));
+            window.location.href = "carrito.html";
+        }
+    </script>
+</body>
+</html>
