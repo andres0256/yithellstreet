@@ -233,14 +233,14 @@
 
         <div class="menu-derecha">
             <button class="icon-btn" onclick="toggleSidebar()">☰ MENÚ</button>
-            <a href="carrito.html"><button class="icon-btn">🛒 CARRITO</button></a>
+            <a href="Carrito.html"><button class="icon-btn">🛒 CARRITO</button></a>
         </div>
     </header>
 
     <!-- MENÚ LATERAL -->
     <nav class="sidebar" id="sidebar">
         <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
-        <a href="Index.html" class="sidebar-link">Inicio</a>
+        <a href="index.html" class="sidebar-link">Inicio</a>
         <a href="redes sociales.html" class="sidebar-link">Redes sociales</a>
     </nav>
 
@@ -499,7 +499,7 @@
             let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
             carrito.push({ nombre: nombre, precio: precio });
             localStorage.setItem('miCarrito', JSON.stringify(carrito));
-            window.location.href = "carrito.html";
+            window.location.href = "Carrito.html";
         }
     </script>
 </body>
